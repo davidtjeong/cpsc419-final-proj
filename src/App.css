@@ -1,0 +1,89 @@
+.App-header {
+	background-color: #003a70;
+	color: white;
+	padding: 10px;
+	text-align: center;
+}
+
+.home-container {
+	text-align: center;
+	padding: 20px;
+}
+  
+.title {
+	font-size: 30px;
+	margin-bottom: 5px;
+	color: #003a70;
+}
+  
+.subtitle {
+	font-size: 20px;
+	margin-bottom: 10px;
+	color: black;
+}
+
+.search-box {
+	margin-bottom: 30px;
+}
+  
+.search-input {
+	padding: 12px;
+	margin: 3px;
+	width: 220px;
+	border-radius: 9px;
+}
+  
+.search-button {
+	padding: 10px 10px;
+	background-color: #968C83;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+  
+.search-button:hover {
+	background-color: #564f48;
+}
+  
+/* Listings */
+.listing-container {
+	padding: 20px;
+}
+.listing-item {
+	padding: 15px;
+	background-color: #003a70;
+	border-radius: 9px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	color: white;
+}
+
+.listing-layout {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	gap: 15px;
+}
+  
+.view-details-link {
+	color: rgb(205, 195, 195);
+	text-decoration: none;
+}
+
+/* Buttons */
+.create-post-button {
+	margin-top: 30px;
+	padding: 10px 20px;
+}
+  
+.create-button {
+	padding: 20px 20px;
+	background-color: #968C83;
+	color: white;
+	border-radius: 9px;
+	cursor: pointer;
+}
+  
+.create-button:hover {
+	background-color: #564f48;
+}
+  
