@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import './CreatePost.css';
 
 function CreatePost() {
@@ -20,10 +21,33 @@ const handleInputChange = (e) => {
 	});
 };
 
-const handleSubmit = (e) => {
-	e.preventDefault();
-	console.log('Listing Creating: ', listing);
-}
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  console.log('Listing Creating: ', listing);
+  
+  try {
+    // Send data to Flask backend API
+    const response = await axios.post('http://localhost:5000/api/listings', listing);
+    console.log('Listing created:', response.data);
+    
+    // Reset form after successful submission
+    setListing({
+      title: '',
+      location: '',
+      price: '',
+      description: '',
+      startDate: '',
+      endDate: '',
+      apartmentId: '',
+    });
+    
+    // Show success message
+    alert('Listing created successfully!');
+  } catch (error) {
+    console.error('Error creating listing:', error);
+    alert('Failed to create listing');
+  }
+};
   
 
 return (
