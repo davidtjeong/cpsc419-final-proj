@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './CreatePost.css';
 
 function CreatePost() {
+  const navigate = useNavigate();
 	const [listing, setListing] = useState({
 	  title: '',
 	  location: '',
@@ -43,6 +45,7 @@ const handleSubmit = async (e) => {
     
     // Show success message
     alert('Listing created successfully!');
+    navigate('/')
   } catch (error) {
     console.error('Error creating listing:', error);
     alert('Failed to create listing');

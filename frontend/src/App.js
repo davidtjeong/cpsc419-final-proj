@@ -8,29 +8,31 @@ import CreatePost from "./components/CreatePost";
 
 function App() {
 	return (
-	  <Router>
-		<div className="App">
-		  <header className="App-header">
-		  </header>
-		  <nav>
-			<ul>
-			  <li>
-				<a href="/">Home</a>
-			  </li>
-			  <li>
-				<a href="/create-post">Create Post</a>
-			  </li>
-			</ul>
-		  </nav>
-		  <main>
-			<Routes>
-			  <Route path="/" element={<Home />} />
-			  <Route path="/item/:id" element={<ListItem />} />
-			  <Route path="/create-post" element={<CreatePost />} /> {/* New route */}
-			</Routes>
-		  </main>
-		</div>
-	  </Router>
+	<BrowserRouter>
+		<Router>
+			<div className="App">
+			<header className="App-header">
+			</header>
+			<nav>
+				<ul>
+				<li>
+					<a href="/">Home</a>
+				</li>
+				<li>
+					<a href="/create-post">Create Post</a>
+				</li>
+				</ul>
+			</nav>
+			<main>
+				<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/item/:id" element={<ListItem />} />
+				<Route path="/create-post" element={<CreatePost />} /> {/* New route */}
+				</Routes>
+			</main>
+			</div>
+		</Router>
+	</BrowserRouter>
 	);
   }
   
