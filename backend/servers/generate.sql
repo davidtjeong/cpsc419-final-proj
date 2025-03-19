@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS Listings(
     listing_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     apartment_id INT NOT NULL,
+    description TEXT,
     title TEXT NOT NULL,
     price BIGINT NOT NULL,
     start_date DATE NOT NULL,
