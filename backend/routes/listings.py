@@ -11,10 +11,12 @@ def get_filtered_listings():
 @bp.route('/listings', methods=['POST'])
 def add_listing():
     try:
-        print("Recieved data:", request.json)
-        listing_data = request.json
+        listing_data = request.args.to_dict()
+        print("Received data:", listing_data)
+        
         result = create_listing(listing_data)
         return jsonify(result), 201
+    
     except Exception as e:
         import traceback
         error_traceback = traceback.format_exc()

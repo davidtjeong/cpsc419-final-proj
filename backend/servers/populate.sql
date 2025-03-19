@@ -32,8 +32,6 @@ INSERT INTO Listings (user_id, apartment_id, title, price, start_date, end_date,
 
 
 
-
-
 -- Query to remove all listings from all tables
 -- @block
 SET FOREIGN_KEY_CHECKS = 0;
@@ -43,4 +41,16 @@ TRUNCATE TABLE Locations;
 TRUNCATE TABLE Messages;
 TRUNCATE TABLE Saved_Listings;
 TRUNCATE TABLE Users;
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+-- Query to delete all tables
+-- @block
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE Apartments;
+DROP TABLE Listings;
+DROP TABLE Locations;
+DROP TABLE Messages;
+DROP TABLE Saved_Listings;
+DROP TABLE Users;
 SET FOREIGN_KEY_CHECKS = 1;
