@@ -11,7 +11,8 @@ def get_filtered_listings():
 @bp.route('/listings', methods=['POST'])
 def add_listing():
     try:
-        listing_data = request.args.to_dict()
+        # Use request.json instead of request.args
+        listing_data = request.get_json()
         print("Received data:", listing_data)
         
         result = create_listing(listing_data)

@@ -5,60 +5,71 @@ import './CreatePost.css';
 
 function CreatePost() {
   const navigate = useNavigate();
-	const [listing, setListing] = useState({
-	  title: '',
-	  location: '',
-	  price: '',
-	  description: '',
-	  startDate: '',
-	  endDate: '',
-	  apartmentId: '',
-});
+  const [listing, setListing] = useState({
+    street_address: '',
+    city: '',
+    state: '',
+    zip_code: '',
+    country: '',
+    bedrooms: '',
+    bathrooms: '',
+    square_footage: '',
+    title: '',
+    price: '',
+    description: '', 
+    start_date: '',
+    end_date: '',
+  });
   
-const handleInputChange = (e) => {
-	const { name, value } = e.target;
-	setListing({
-	...listing,
-	[name]: value,
-	});
-};
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  console.log('Listing Creating: ', listing);
-  
-  try {
-    // Send data to Flask backend API
-    const response = await axios.post('http://localhost:5000/api/listings', listing);
-    console.log('Listing created:', response.data);
-    
-    // Reset form after successful submission
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
     setListing({
-      title: '',
-      location: '',
-      price: '',
-      description: '',
-      startDate: '',
-      endDate: '',
-      apartmentId: '',
+      ...listing,
+      [name]: value,
     });
-    
-    // Show success message
-    alert('Listing created successfully!');
-    navigate('/')
-  } catch (error) {
-    console.error('Error creating listing:', error);
-    alert('Failed to create listing');
-  }
-};
-  
+  };
 
-return (
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('Listing Creating: ', listing);
+    
+    try {
+      // Send data to Flask backend API
+      const response = await axios.post('http://localhost:5000/api/listings', listing);
+      console.log('Listing created:', response.data);
+      
+      // Reset form after successful submission
+      setListing({
+        street_address: '',
+        city: '',
+        state: '',
+        zip_code: '',
+        country: '',
+        bedrooms: '',
+        bathrooms: '',
+        square_footage: '',
+        title: '',
+        price: '',
+        description: '', 
+        start_date: '',
+        end_date: '',
+      });
+      
+      // Show success message
+      alert('Listing created successfully!');
+      navigate('/')
+    } catch (error) {
+      console.error('Error creating listing:', error);
+      alert('Failed to create listing');
+    }
+  };
+  
+  return (
     <div className="create-post-container">
       <h1>Create New Listing Post</h1>
-	  <h2> Thinking about subletting? </h2>
-	  <p>Fill out the form below to create a new listing post.</p>
-	  <form onSubmit={handleSubmit} className="create-post-form">
+      <h2>Thinking about subletting?</h2>
+      <p>Fill out the form below to create a new listing post.</p>
+      <form onSubmit={handleSubmit} className="create-post-form">
         <div className="form-group">
           <label htmlFor="title">Title</label>
           <input
@@ -71,15 +82,107 @@ return (
             required
           />
         </div>
-		<div className="form-group">
-          <label htmlFor="location">Location</label>
+
+        <div className="form-group">
+          <label htmlFor="street_address">Street Address</label>
           <input
             type="text"
-            id="location"
-            name="location"
-            value={listing.location}
+            id="street_address"
+            name="street_address"
+            value={listing.street_address}
             onChange={handleInputChange}
-            placeholder="Enter location"
+            placeholder="Enter street address"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="city">City</label>
+          <input
+            type="text"
+            id="city"
+            name="city"
+            value={listing.city}
+            onChange={handleInputChange}
+            placeholder="Enter city"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="state">State</label>
+          <input
+            type="text"
+            id="state"
+            name="state"
+            value={listing.state}
+            onChange={handleInputChange}
+            placeholder="Enter state"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="zip_code">Zip Code</label>
+          <input
+            type="text"
+            id="zip_code"
+            name="zip_code"
+            value={listing.zip_code}
+            onChange={handleInputChange}
+            placeholder="Enter zip code"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="country">Country</label>
+          <input
+            type="text"
+            id="country"
+            name="country"
+            value={listing.country}
+            onChange={handleInputChange}
+            placeholder="Enter country"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="bedrooms">Bedrooms</label>
+          <input
+            type="number"
+            id="bedrooms"
+            name="bedrooms"
+            value={listing.bedrooms}
+            onChange={handleInputChange}
+            placeholder="Enter number of bedrooms"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="bathrooms">Bathrooms</label>
+          <input
+            type="number"
+            id="bathrooms"
+            name="bathrooms"
+            value={listing.bathrooms}
+            onChange={handleInputChange}
+            placeholder="Enter number of bathrooms"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="square_footage">Square Footage</label>
+          <input
+            type="number"
+            id="square_footage"
+            name="square_footage"
+            value={listing.square_footage}
+            onChange={handleInputChange}
+            placeholder="Enter square footage"
             required
           />
         </div>
@@ -111,44 +214,32 @@ return (
         </div>
 
         <div className="form-group">
-          <label htmlFor="startDate">Start Date</label>
+          <label htmlFor="start_date">Start Date</label>
           <input
             type="date"
-            id="startDate"
-            name="startDate"
-            value={listing.startDate}
+            id="start_date"
+            name="start_date"
+            value={listing.start_date}
             onChange={handleInputChange}
             required
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="endDate">End Date</label>
+          <label htmlFor="end_date">End Date</label>
           <input
             type="date"
-            id="endDate"
-            name="endDate"
-            value={listing.endDate}
+            id="end_date"
+            name="end_date"
+            value={listing.end_date}
             onChange={handleInputChange}
             required
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="apartmentId">Apartment ID</label>
-          <input
-            type="text"
-            id="apartmentId"
-            name="apartmentId"
-            value={listing.apartmentId}
-            onChange={handleInputChange}
-            placeholder="Enter apartment ID"
-            required
-          />
+        <div className="center-button-container">
+          <button type="submit" className="submit-button">Create Post</button>
         </div>
-		<div className="center-button-container">
-     	 	<button type="submit" className="submit-button">Create Post</button>
-    	</div>
       </form>
     </div>
   );
