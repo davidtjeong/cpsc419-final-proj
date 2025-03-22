@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 function Home() {
   const [search, setSearch] = useState({
@@ -9,39 +10,33 @@ function Home() {
   });
   const [listings, setListings] = useState([]);
   const [filteredListings, setFilteredListings] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // simulates fetching listings from  backend
   useEffect(() => {
     // Example listings REPLAACE LATER
-    const fetchedListings = [
-      {
-        id: 1,
-        title: "Cozy 2 Bedroom Apartment",
-        price: 2200,
-        location: "Downtown",
-      },
-      {
-        id: 2,
-        title: "Luxury Studio",
-        price: 1800,
-        location: "Uptown",
-      },
-      {
-        id: 3,
-        title: "Spacious 3 Bedroom House",
-        price: 2800,
-        location: "Suburbs",
-      },
-	  {
-        id: 4,
-        title: "1 Bedroom Room",
-        price: 2000,
-        location: "Downtown",
-      },
-    ];
+    const fetchedListings = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get('http://localhost:5000/api/listings?limit=4');
 
-    setListings(fetchedListings); //fix after backend
-    setFilteredListings(fetchedListings);
+        const formattedListings = response.data.map(listing => ({
+          id: listing.listing_id,
+          title: listing.title,
+          price: listing.price,
+          location: `${listing.city}, ${listing.state}`,
+        }));
+        
+        setListings(formattedListings);
+        setFilteredListings(formattedListings);
+      } catch (error) {
+        console.error('Error fetching listings:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchedListings();
   }, []);
 
   const handleSearchChange = (e) => {
@@ -99,18 +94,22 @@ function Home() {
 
       <div className="listing-container">
         <h2>Listings</h2>
-        <div className="listing-layout">
-          {filteredListings.map((listing) => (
-            <div key={listing.id} className="listing-item">
-              <h3>{listing.title}</h3>
-              <p>Location: {listing.location}</p>
-              <p>Price: ${listing.price}</p>
-              <Link to={`/item/${listing.id}`} className="view-details-link">
-                View Details
-              </Link>
-            </div>
-          ))}
-        </div>
+        {loading ? (
+          <p>Loading listings...</p>
+        ) : (
+          <div className="listing-layout">
+            {filteredListings.map((listing) => (
+              <div key={listing.id} className="listing-item">
+                <h3>{listing.title}</h3>
+                <p>Location: {listing.location}</p>
+                <p>Price: ${listing.price}</p>
+                <Link to={`/item/${listing.id}`} className="view-details-link">
+                  View Details
+                </Link>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="create-post-button">

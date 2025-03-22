@@ -61,7 +61,7 @@ def apply_location_filters(query, params, filters):
     return query, params
 
 
-def get_listings(filters):
+def get_listings(filters=None, limit=None):
     """
     Get listings from the database based on the provided filters.
 
@@ -72,6 +72,7 @@ def get_listings(filters):
 
     Args:
         filters (dict): Dictionary containing filters for the query.
+        limit (int): limit of how many should be returned for display.
     """
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
@@ -80,12 +81,18 @@ def get_listings(filters):
     query = basic_listings_query()
     params = []
 
-    # apply filters and add to query as needed
-    query, params = apply_apartments_filters(query, params, filters)
-    query, params = apply_listings_filters(query, params, filters)
-    query, params = apply_location_filters(query, params, filters)
+    if filters is not None:
+        # apply filters and add to query as needed
+        query, params = apply_apartments_filters(query, params, filters)
+        query, params = apply_listings_filters(query, params, filters)
+        query, params = apply_location_filters(query, params, filters)
 
-    query += " GROUP BY l.listing_id ORDER BY l.created_at DESC LIMIT 100"
+    query += " GROUP BY l.listing_id ORDER BY l.created_at DESC"
+
+    if limit:
+        query += f' LIMIT {limit}'
+    else:
+        query += f' LIMIT 100'
 
     cursor.execute(query, params)
     listings = cursor.fetchall()
